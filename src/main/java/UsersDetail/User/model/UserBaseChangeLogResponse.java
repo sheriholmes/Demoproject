@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 /**
  * UserBaseChangeLogResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-05-25T14:44:11.109837519+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-05-26T18:56:14.559989353+05:30[Asia/Kolkata]")
 
 public class UserBaseChangeLogResponse extends BaseChange  {
   @JsonProperty("cdc")

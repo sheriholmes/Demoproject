@@ -13,10 +13,14 @@ public class UserService implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
 
-    @Override
-    public String deleteUserById(UUID id) {
-        userRepository.deleteById(id);
-        return "deleted successfully";
+    public UserService(UserRepository userRepository){
+        this.userRepository=userRepository;
+    }
+    public UserEntity deleteById(UUID id) {
+        UserEntity userEntity = this.userRepository.findById(id).get();
+        userEntity.setDeleted(true);
+        userRepository.save(userEntity);
+        return userEntity;
     }
     @Override
     public PutSuccessResponse updateUser(UUID id, Address address,Mobile mobile){

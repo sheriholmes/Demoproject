@@ -72,7 +72,7 @@ public class CassandraLocalConfig extends AbstractCassandraConfiguration {
         return list;
     }
 
-//    protected @NotNull CqlSession getRequiredSession() {    DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.con");
+    //    protected @NotNull CqlSession getRequiredSession() {    DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.con");
 //        CqlSession session = CqlSession.builder().withConfigLoader(loader).build();
 //        session.execute(
 //                "CREATE KEYSPACE IF NOT EXISTS user WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }");
@@ -87,9 +87,9 @@ public class CassandraLocalConfig extends AbstractCassandraConfiguration {
 //                        ")");
 //        return session;
 //    }
-@Bean
-public void createKeyspaceAndTable() throws InterruptedException {
-    cqlSession.execute(
+    @Bean
+    public void createKeyspaceAndTable() throws InterruptedException {
+        cqlSession.execute(
                 "CREATE KEYSPACE IF NOT EXISTS user WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }");
         cqlSession.execute(
                 "CREATE TABLE IF NOT EXISTS user.userEntity (\n" +
@@ -103,9 +103,7 @@ public void createKeyspaceAndTable() throws InterruptedException {
 
 
 
+    }
 }
-}
-
-
 
 

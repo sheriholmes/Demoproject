@@ -27,7 +27,6 @@ dependencies {
 	compile "io.springfox:springfox-swagger2:2.7.0"
 	compile "io.springfox:springfox-swagger-ui:2.7.0"
 	compile "org.openapitools:jackson-databind-nullable:0.2.1"
-	compile "com.datastax.cassandra:cassandra-driver-core:2.1.9"
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok:1.18.16'
 	testCompileOnly 'org.projectlombok:lombok:1.18.16'

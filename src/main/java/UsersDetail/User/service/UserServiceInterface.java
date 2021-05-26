@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface UserServiceInterface {
 
-    String deleteUserById(UUID id);
+
     PutSuccessResponse updateUser(UUID id, Address address, Mobile mobile);
 
 

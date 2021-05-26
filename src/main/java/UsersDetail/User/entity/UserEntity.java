@@ -20,7 +20,7 @@ public class UserEntity {
     private Integer pincode;
 
     @Column
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
     @Override
     public boolean equals(Object obj) {
