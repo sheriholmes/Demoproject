@@ -1,0 +1,140 @@
+package UsersDetail.User.model;
+
+import java.util.Objects;
+import UsersDetail.User.model.Error;
+import UsersDetail.User.model.ErrorResponse;
+import UsersDetail.User.model.GetErrorResponseAllOf;
+import UsersDetail.User.model.GetErrorResponseAllOfData;
+import UsersDetail.User.model.Request;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
+/**
+ * PutErrorResponse
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-05-25T14:44:11.109837519+05:30[Asia/Kolkata]")
+
+public class PutErrorResponse   {
+  @JsonProperty("error")
+  private Error error;
+
+  @JsonProperty("request")
+  private Request request;
+
+  @JsonProperty("data")
+  private GetErrorResponseAllOfData data;
+
+  public PutErrorResponse error(Error error) {
+    this.error = error;
+    return this;
+  }
+
+  /**
+   * Get error
+   * @return error
+  */
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+  @Valid
+
+  public Error getError() {
+    return error;
+  }
+
+  public void setError(Error error) {
+    this.error = error;
+  }
+
+  public PutErrorResponse request(Request request) {
+    this.request = request;
+    return this;
+  }
+
+  /**
+   * Get request
+   * @return request
+  */
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+  @Valid
+
+  public Request getRequest() {
+    return request;
+  }
+
+  public void setRequest(Request request) {
+    this.request = request;
+  }
+
+  public PutErrorResponse data(GetErrorResponseAllOfData data) {
+    this.data = data;
+    return this;
+  }
+
+  /**
+   * Get data
+   * @return data
+  */
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public GetErrorResponseAllOfData getData() {
+    return data;
+  }
+
+  public void setData(GetErrorResponseAllOfData data) {
+    this.data = data;
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PutErrorResponse putErrorResponse = (PutErrorResponse) o;
+    return Objects.equals(this.error, putErrorResponse.error) &&
+        Objects.equals(this.request, putErrorResponse.request) &&
+        Objects.equals(this.data, putErrorResponse.data);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(error, request, data);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PutErrorResponse {\n");
+    
+    sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("    request: ").append(toIndentedString(request)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+}
+
