@@ -6,6 +6,8 @@ import UsersDetail.User.model.PutSuccessResponse;
 import UsersDetail.User.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.UUID;
 
 
@@ -13,6 +15,12 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     UserService userService;
+    @GetMapping("/users/{id}")
+    public  UserEntity getUserById(@PathVariable("id") UUID id){
+        UserEntity response = userService.getUserById(id);
+        return  response;
+    }
+
     @DeleteMapping("/users/{id}")
     public UserEntity deleteUserById(@PathVariable("id")UUID id){
           return userService.deleteById(id);
