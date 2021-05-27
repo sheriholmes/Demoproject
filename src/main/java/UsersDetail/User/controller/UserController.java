@@ -2,6 +2,7 @@ package UsersDetail.User.controller;
 import UsersDetail.User.entity.Address;
 import UsersDetail.User.entity.UserEntity;
 import UsersDetail.User.model.Mobile;
+import UsersDetail.User.model.PostSuccessResponse;
 import UsersDetail.User.model.PutSuccessResponse;
 import UsersDetail.User.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,12 @@ public class UserController {
         return  response;
     }
 
+    @PostMapping("/user")
+    public PostSuccessResponse addUser (@RequestBody UserEntity userEntity){
 
+        return userService.addUser(userEntity);
+
+    }
 
     }
 
