@@ -120,5 +120,8 @@ public class UserEntity {
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
+
+    public UserEntity() {
+    }
 }
 

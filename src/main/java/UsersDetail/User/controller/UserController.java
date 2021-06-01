@@ -16,10 +16,17 @@ import java.util.UUID;
 @RestController
 public class UserController {
     @Autowired
+<<<<<<< HEAD
     UserServiceImpl userServiceImpl;
     @GetMapping("/users/{id}")
     public  UserEntity getUserById(@PathVariable("id") UUID id){
         UserEntity response = userServiceImpl.getUserById(id);
+=======
+    UserService userService;
+    @GetMapping("/users/{id}")
+    public  UserEntity getUserById(@PathVariable("id") UUID id){
+        UserEntity response = userService.getUserById(id);
+>>>>>>> 15edddad3930ecb6f05547f518be5a8ed9f9baed
         return  response;
     }
 
@@ -39,10 +46,17 @@ public class UserController {
 
     @PostMapping("/user")
     public PostSuccessResponse addUser (@RequestBody UserEntity userEntity){
+<<<<<<< HEAD
         String userId = UUID.randomUUID().toString();
         userEntity.setId(userId);
 
         return userServiceImpl.addUser(userEntity);
+=======
+
+        return userService.addUser(userEntity);
+
+    }
+>>>>>>> 15edddad3930ecb6f05547f518be5a8ed9f9baed
 
     }
 
