@@ -10,7 +10,8 @@ public interface UserServiceInterface {
 
 
     PutSuccessResponse updateUser(UUID id, Address address, Mobile mobile);
-
+    UserEntity getUserById(UUID id);
+    UserEntity deleteById(UUID id);
 
 
 }

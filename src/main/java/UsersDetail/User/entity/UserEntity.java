@@ -7,7 +7,7 @@ import java.util.UUID;
 @Table
 public class UserEntity {
     @PrimaryKey
-    private UUID id;
+    private String id  = UUID.randomUUID().toString();
     @Column
     private String name;
     @Column
@@ -18,16 +18,45 @@ public class UserEntity {
     private String city;
     @Column
     private Integer pincode;
+    @Column
+    private String address;
+    @Column
+    private  String mobile;
 
     @Column
     private Boolean isDeleted = false;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+
+
+    public UserEntity() {
+
+    }
 
     @Override
     public boolean equals(Object obj) {
         return true;
     }
 
-    public UserEntity(UUID id, String name, String line1, String number, String city, Integer pincode) {
+
+    public UserEntity(String id, String name, String line1, String number, String city, Integer pincode) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -36,11 +65,11 @@ public class UserEntity {
         this.pincode = pincode;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

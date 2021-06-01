@@ -8,13 +8,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+
+
 @Service
-public class UserService implements UserServiceInterface {
+public class UserServiceImpl implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
+    @Override
+    public UserEntity getUserById(UUID id){
+        Optional<UserEntity> check = userRepository.findById(id);
+        UserEntity response = null;
+        if(check.isPresent())
+            response = check.get();
+        return  response;
+    }
 
-    public UserService(UserRepository userRepository){
-        this.userRepository=userRepository;
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
     public UserEntity deleteById(UUID id) {
         UserEntity userEntity = this.userRepository.findById(id).get();
@@ -49,14 +59,29 @@ public class UserService implements UserServiceInterface {
         request.setUri("local host : 8080/user");
         request.setQueryString("update user");
 
-    return  request;
+        return  request;
     }
+    public PostSuccessResponse addUser(UserEntity userEntity){
+        UserEntity user=new UserEntity();
+        user.setName(userEntity.getName());
+        Address address =new Address("Delhi",306115,"Delhi");
+        user.setAddress(address.toString());
+        user.setMobile("9799023668");
+
+        userRepository.save(user);
+        Request request = getPost();
+
+        return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId().toString()));
 
 
+    }
+    public  Request getPost() {
+        Request request = new Request();
+        request.setMethod(Method.POST);
+        request.setUri("local host : 8080/user");
+        request.setQueryString("create user");
 
+        return request;
 
-
-
-
-
+    }
 }
