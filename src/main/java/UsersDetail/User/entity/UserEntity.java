@@ -1,10 +1,11 @@
 package UsersDetail.User.entity;
+import UsersDetail.User.model.Mobile;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
-@Table
+@Table("userEntity")
 public class UserEntity {
     @PrimaryKey
     private String id = UUID.randomUUID().toString();
@@ -17,11 +18,7 @@ public class UserEntity {
     @Column
     private String city;
     @Column
-    private Integer pincode;
-    @Column
-    private String address;
-    @Column
-    private String mobile;
+    private String pincode;
 
     @Column
     private Boolean isDeleted = false;
@@ -31,22 +28,6 @@ public class UserEntity {
     }
 
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
 
 
     @Override
@@ -55,7 +36,7 @@ public class UserEntity {
     }
 
 
-    public UserEntity(String id, String name, String line1, String number, String city, Integer pincode) {
+    public UserEntity(String id, String name, String line1, String number, String city, String pincode) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -85,7 +66,7 @@ public class UserEntity {
     }
 
     public void setNumber(String mobile) {
-        this.number = number;
+        this.number = mobile;
     }
 
     public String getLine1() {
@@ -104,11 +85,11 @@ public class UserEntity {
         this.city = city;
     }
 
-    public Integer getPincode() {
+    public String getPincode() {
         return pincode;
     }
 
-    public void setPincode(Integer pincode) {
+    public void setPincode(String pincode) {
         this.pincode = pincode;
     }
 

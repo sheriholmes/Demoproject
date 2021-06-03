@@ -58,8 +58,12 @@ public class CassandraLocalConfig extends AbstractCassandraConfiguration {
         cqlSession.execute(
                 "CREATE TABLE IF NOT EXISTS user.userEntity (\n" +
                         "    id text PRIMARY KEY,\n" +
-                        "    address varchar,\n" +
-                        "    mobile varchar,\n" +
+                        "    number varchar,\n" +
+                        "    line1 varchar,\n" +
+                        "    pincode varchar,\n" +
+                        "    city varchar,\n" +
+                        "    name varchar,\n" +
+                        "    isdeleted boolean,\n" +
                         ")");
     }
 }

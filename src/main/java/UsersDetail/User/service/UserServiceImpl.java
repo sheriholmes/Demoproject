@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
     @Override
-    public UserEntity getUserById(UUID id){
+    public UserEntity getUserById(String id){
         Optional<UserEntity> check = userRepository.findById(id);
         UserEntity response = null;
         if(check.isPresent())
@@ -26,62 +26,51 @@ public class UserServiceImpl implements UserServiceInterface {
     public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public UserEntity deleteById(UUID id) {
+    public UserEntity deleteById(String id) {
         UserEntity userEntity = this.userRepository.findById(id).get();
         userEntity.setDeleted(true);
         userRepository.save(userEntity);
         return userEntity;
     }
     @Override
-    public PutSuccessResponse updateUser(UUID id, Address address,Mobile mobile){
+    public PutSuccessResponse updateUser(String id, PutUserId putUserId){
         Optional<UserEntity> previousUser = userRepository.findById(id);
-        UserEntity response = null;
+        UserEntity response = new UserEntity();
         if (previousUser.isPresent()){
             response = previousUser.get();
-            if(address.getLine1()!= null)
-                response.setLine1(address.getLine1());
-            if(address.getCity()!=null)
-                response.setCity(address.getCity());
-            if(address.getPincode()!=null)
-                response.setPincode(address.getPincode());
-            if(mobile.getNumber()!=null)
-                response.setNumber(mobile.getNumber());
+            if(putUserId.getLine1()!= null)
+                response.setLine1(putUserId.getLine1());
+            if(putUserId.getCity()!=null)
+                response.setCity(putUserId.getCity());
+            if(putUserId.getPincode()!=null)
+                response.setPincode(putUserId.getPincode().toString());
+            if(putUserId.getNumber()!=null)
+                response.setNumber(putUserId.getNumber());
 
             userRepository.save(response);
 
         }
-        Request request = getRequest();
+
         return new PutSuccessResponse().data(new GetErrorResponseAllOfData().id(id.toString()));
     }
-    public  Request getRequest(){
-        Request request = new Request();
-        request.setMethod(Method.PUT);
-        request.setUri("local host : 8080/user");
-        request.setQueryString("update user");
 
-        return  request;
-    }
-    public PostSuccessResponse addUser(UserEntity userEntity){
+    public PostSuccessResponse addUser(UserRequest userRequest){
         UserEntity user=new UserEntity();
-        user.setName(userEntity.getName());
-        Address address =new Address("Delhi",306115,"Delhi");
-        user.setAddress(address.toString());
-        user.setMobile("9799023668");
+        user.setId(UUID.randomUUID().toString());
 
+        user.setName(userRequest.getName());
+        user.setCity(userRequest.getAddress().getCity());
+        user.setLine1(userRequest.getAddress().getLine1());
+        user.setPincode(userRequest.getAddress().getPincode().toString());
+        user.setNumber(userRequest.getMobile().getNumber());
         userRepository.save(user);
-        Request request = getPost();
-
-        return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId().toString()));
 
 
-    }
-    public  Request getPost() {
-        Request request = new Request();
-        request.setMethod(Method.POST);
-        request.setUri("local host : 8080/user");
-        request.setQueryString("create user");
 
-        return request;
+
+
+        return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId()));
+
 
     }
 }
