@@ -35,8 +35,6 @@ public class UserController {
 
     @PostMapping("/user")
     public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
-//        String userId = UUID.randomUUID().toString();
-//        userEntity.setId(userId);
 
         return userServiceImpl.addUser(userRequest);
 
