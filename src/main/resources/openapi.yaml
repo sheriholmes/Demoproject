@@ -1,0 +1,587 @@
+openapi: 3.0.1
+info:
+  title: User API
+  description: This provides all user service API details
+  version: 1.0.0
+servers:
+    - url: ''
+paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: Return users  
+      operationId: getAllUsers
+      description:  API for creating new **Users** by specifying the parameters in request body.
+      responses:
+        '200':
+         description:  Array for all the users
+         content:
+           application/json:
+             schema:
+                 $ref: '#/components/schemas/GetSuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetErrorResponse'   
+                
+                
+      
+                
+                
+                
+                 
+                 
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return  
+        - $ref: '#/components/parameters/Query'    
+          
+          
+    post:
+      tags:
+        - User
+      summary: Adding user
+      operationId: createUser
+      description: Api for adding new users.
+      requestBody:
+       required: true
+       content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+         description: successfully created
+      
+     
+     
+         content:
+           application/json:
+             schema:
+              
+               $ref: '#/components/schemas/PostSuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostErrorResponse'       
+    
+  
+  /user/{id}:
+    get:
+      tags:
+        - User
+        
+      summary: Will return a user
+      operationId: getUserById
+      description: Fetching  details for a given UserID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID request by the user.
+        schema:
+          type: string
+      responses:
+       '200':
+         description: Data of the user.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/GetSuccessResponse'
+       '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetErrorResponse'
+       '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetErrorResponse'      
+               
+          
+      
+               
+    put:
+      tags:
+        - User
+      summary: Will update a user
+      operationId: updateUserById
+      description: This operation is used for updating the details. So, with the help of this we will be updating details. for a given UserID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of the user for updating the details
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUserId'
+              
+             
+                
+        
+              
+      responses:
+       '200':
+         description: Updation of the details is done.
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/PutSuccessResponse' 
+               
+       '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutErrorResponse'
+       '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutErrorResponse'        
+                
+  "/user/{userId}/change-log":
+    get:
+      tags:
+        - Change Log
+      summary: Get the user change log
+      operationId: getuserChangeLog
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/StartDateTime"
+        - $ref: "#/components/parameters/Duration"
+        - $ref: "#/components/parameters/PageSize"
+        - $ref: "#/components/parameters/PageOffset"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserChangeLogResponse"
+        "400":
+          $ref: "#/components/responses/GetErrorResponse"
+        "401":
+          $ref: "#/components/responses/GetErrorResponse"
+        
+ 
+      
+components:
+      schemas:
+        UserResponse:
+          type: object
+          properties:
+            id:
+              type: string
+              description: "ID of the user"
+              format: UUID
+            name: 
+              type: string
+              description: "Name of the user"
+            address:
+              $ref: '#/components/schemas/Address'
+            mobile:
+              $ref: '#/components/schemas/Mobile'
+              
+          required:
+              - name
+              - address
+              - mobile
+        PutUserId: 
+         allOf:
+          - $ref: '#/components/schemas/Address'
+          - $ref: '#/components/schemas/Mobile'
+        Address:
+          properties:
+            line1:
+              type: string
+              description: " user's  house number"
+            city:
+              type: string
+              description: "user's city"
+            pincode:
+              type: integer
+              description: " pincode "
+              maxLength: 6
+            
+        Mobile:
+          required: 
+            - number
+          properties:
+            number:
+              type: string
+              pattern: ^[0-9]{10}$
+              description: "Mobile no. of the user."
+              maxLength: 10      
+              
+        UserRequest:
+          type: object
+          properties:
+            name:
+              type: string
+              pattern: ^[a-zA-Z]$
+              description: "name of the user"
+            address:
+              $ref: '#/components/schemas/Address'
+            mobile:
+              $ref: '#/components/schemas/Mobile'
+          required:
+            - name
+            - address
+            - mobile
+        
+        Error:
+          description: Error information
+          type: object
+          required:
+            - code
+            - description
+          properties:
+            code:
+              type: string
+              description: Error code
+            description:
+              type: string
+              description: Error's description
+            additionalInfo: 
+              type: object
+              description: Additional information for the error
+        Request:
+          description:  Request
+          type: object
+          required:
+            - uri
+          properties:
+            uri:
+              type: string
+              description: end point where the request will be received
+            method:
+              $ref: '#/components/schemas/Method'
+            queryString:
+              type: string
+              description: query string received by the server
+            body:
+              type: object
+        Method:
+          type: string
+          description: HTTP method request
+          enum: 
+            - POST
+            - GET
+            - PUT
+        ErrorResponse:
+          type: object
+          required:
+            - error
+            - request
+          properties:
+            error:
+              $ref: "#/components/schemas/Error"
+            request:
+              $ref: "#/components/schemas/Request"    
+              
+        GetSuccessResponse:
+           allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+            - type: object
+              properties:
+                data:
+                   $ref: "#/components/schemas/UserResponse"
+                   
+        GetErrorResponse:
+           allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+            - type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id: 
+                      type: string
+                    
+                  
+        PostSuccessResponse:
+            allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+            - type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                       type: string
+        PutSuccessResponse:
+            allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+            - type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string               
+        
+                       
+        PostErrorResponse:
+            allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+           
+                          
+                      
+                      
+                      
+        PutErrorResponse:
+            allOf:
+            - $ref: "#/components/schemas/ErrorResponse"
+            - type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id: 
+                      type: string
+                      
+        UserChangeLogResponse:
+          type: object
+          properties:
+            error:
+              $ref: "#/components/schemas/Error"
+            data:
+              type: object
+              properties:
+                log:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserBaseChangeLogResponse'
+                    
+                totalItems:
+                  type: integer
+                  format: int64
+            request:
+              $ref: "#/components/schemas/Request"  
+              
+        UserCDC:
+       
+          $ref: '#/components/schemas/UserResponseData'
+              
+        UserBaseChangeLogResponse:
+          allOf:
+           - $ref: '#/components/schemas/BaseChange'
+          type: object
+          required:
+            - cdc
+          properties:
+              cdc:
+                $ref: '#/components/schemas/UserCDC'
+            
+        BaseChange:
+          type: object
+          required:
+            - action
+            - actionTime
+            - actionBy
+          properties:
+            action:
+              $ref: "#/components/schemas/ChangeAction"
+            actionTime:
+              type: integer
+              format: int64
+            actionBy:
+              $ref: "#/components/schemas/ActionBy"
+      
+        ChangeAction:
+          description: Action for data auditing
+          type: string
+          enum:
+            - CREATE
+            - UPDATE
+            - GET
+            - DELETE
+        ActionBy:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              minLength: 1
+              maxLength: 64
+            name:
+              type: string
+              maxLength: 256  
+              
+           
+              
+              
+              
+              
+       
+                
+        UserResponseData:
+          allOf:
+            
+            - $ref: "#/components/schemas/ActionBy"
+            - $ref: '#/components/schemas/UserResponse'
+       
+              
+              
+           
+              
+        Query:
+           properties:
+            match:
+              type: array
+              items:
+                type: object
+            multi_match:
+              type: array
+              items:
+                type: object
+            range:
+              type: array
+              items:
+                type: object
+            regexp:
+              type: array
+              items:
+                type: object
+                
+            terms:
+              type: array
+              items:
+                type: object    
+              
+       
+        
+            
+            
+            
+            
+         
+      parameters:
+        UserId:
+          description: Unique id of User Type.
+          name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            
+        StartDateTime:
+          description: Start time of the change log.
+          name: from
+          in: query
+          required: true
+          schema:
+            type: integer     
+          
+        Duration:
+          description: Number of days for which change log is to be returned.
+          name: Time duration
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 31
+            default: 1 
+            
+            
+        PageSize:
+          description: Number of items to return.
+          name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        PageOffset:
+          description: Number of items to skip from start.
+          name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0    
+        Query:
+          name: query
+          in: query
+          schema:
+            $ref: "#/components/schemas/Query"    
+            
+            
+        
+           
+            
+      responses:
+        ErrorResponse:
+          description: Error Occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        GetSuccessResponse:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSuccessResponse"
+        PostErrorResponse:
+          description: Error Occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostErrorResponse"
+        GetErrorResponse:
+          description: Error Occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetErrorResponse"
+        PutErrorResponse:
+          description: Error Occurred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PutErrorResponse"  
+                
+                
+        UserChangeLogResponse:
+          description: Participant Type Change Log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserChangeLogResponse"
