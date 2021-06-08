@@ -5,27 +5,27 @@ import UsersDetail.User.model.*;
 
 import UsersDetail.User.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.UUID;
 
 
 @RestController
 public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     public  UserEntity getUserById(@PathVariable("id") String id){
         UserEntity response = userServiceImpl.getUserById(id);
         return  response;
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/user/{id}")
     public UserEntity deleteUserById(@PathVariable("id")String id){
         return userServiceImpl.deleteById(id);
 
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/user/{id}")
     public PutSuccessResponse updateUser(@PathVariable("id")String id, @RequestBody PutUserId putUserId){
         PutSuccessResponse response = userServiceImpl.updateUser(id, putUserId);
 
@@ -35,9 +35,6 @@ public class UserController {
 
     @PostMapping("/user")
     public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
-//        String userId = UUID.randomUUID().toString();
-//        userEntity.setId(userId);
-
         return userServiceImpl.addUser(userRequest);
 
     }

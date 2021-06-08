@@ -4,6 +4,9 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 @Table("userEntity")
 public class UserEntity {
@@ -12,6 +15,9 @@ public class UserEntity {
     @Column
     private String name;
     @Column
+    @NotNull
+    @Pattern(regexp="^[0-9]{10}$")
+    @Size(max=10)
     private String number;
     @Column
     private String line1;

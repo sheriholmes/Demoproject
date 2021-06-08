@@ -1,31 +1,42 @@
 package UsersDetail.User.service;
-import UsersDetail.User.entity.Address;
 import UsersDetail.User.entity.UserEntity;
+import UsersDetail.User.exception.UserNotFoundException;
 import UsersDetail.User.model.*;
 import UsersDetail.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
 
 @Service
+
 public class UserServiceImpl implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
+
     @Override
-    public UserEntity getUserById(String id){
-        Optional<UserEntity> check = userRepository.findById(id);
-        UserEntity response = null;
-        if(check.isPresent())
-            response = check.get();
-        return  response;
+//    public UserEntity getUserById(String id) {
+//        Optional<UserEntity> check = userRepository.findById(id);
+//        UserEntity response = null;
+//        if (check.isPresent())
+//            response = check.get();
+//        return  response;
+//    }
+    public UserEntity getUserById(String id ) {
+             return   userRepository.findById(id).
+                orElseThrow(() -> new UserNotFoundException(id));
+
+
+
     }
 
-    public UserServiceImpl(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
     public UserEntity deleteById(String id) {
         UserEntity userEntity = this.userRepository.findById(id).get();
         userEntity.setDeleted(true);
@@ -51,10 +62,14 @@ public class UserServiceImpl implements UserServiceInterface {
 
         }
 
-        return new PutSuccessResponse().data(new GetErrorResponseAllOfData().id(id.toString()));
+        return new PutSuccessResponse().data(new GetErrorResponseAllOfData().id(id))
+                .request(new Request().uri("LocalHost").method(Method.PUT).queryString(null));
     }
 
-    public PostSuccessResponse addUser(UserRequest userRequest){
+
+
+
+    public PostSuccessResponse addUser( @RequestBody  UserRequest userRequest){
         UserEntity user=new UserEntity();
         user.setId(UUID.randomUUID().toString());
 
@@ -65,11 +80,8 @@ public class UserServiceImpl implements UserServiceInterface {
         user.setNumber(userRequest.getMobile().getNumber());
         userRepository.save(user);
 
-
-
-
-
-        return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId()));
+        return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId()))
+                .request(new Request().uri("LocalHost").method(Method.POST).queryString(null));
 
 
     }
