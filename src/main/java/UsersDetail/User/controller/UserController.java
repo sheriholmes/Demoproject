@@ -35,6 +35,10 @@ public class UserController {
 
     @PostMapping("/user")
     public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f64e39c94abe5090282d7a9723a12ebd6ac9e4b
         return userServiceImpl.addUser(userRequest);
 
     }
