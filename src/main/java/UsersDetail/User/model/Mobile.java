@@ -30,7 +30,7 @@ public class Mobile   {
   @ApiModelProperty(required = true, value = "Mobile no. of the user.")
   @NotNull
 
-@Pattern(regexp="^[0-9]{10}$") @Size(max=10) 
+@Pattern(regexp="^[0-9]{10}$") @Size(max=10)
   public String getNumber() {
     return number;
   }

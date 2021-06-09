@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
+@Validated
 public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
@@ -26,7 +29,7 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public PutSuccessResponse updateUser(@PathVariable("id")String id, @RequestBody PutUserId putUserId){
+    public PutSuccessResponse updateUser(@PathVariable("id")String id, @Valid @RequestBody PutUserId putUserId){
         PutSuccessResponse response = userServiceImpl.updateUser(id, putUserId);
 
 
@@ -34,11 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
-<<<<<<< HEAD
-=======
-
->>>>>>> 3f64e39c94abe5090282d7a9723a12ebd6ac9e4b
+    public PostSuccessResponse addUser ( @Valid @RequestBody UserRequest userRequest){
         return userServiceImpl.addUser(userRequest);
 
     }

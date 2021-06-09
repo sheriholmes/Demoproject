@@ -75,7 +75,7 @@ public class Address   {
   */
   @ApiModelProperty(value = " pincode ")
 
-@Size(max=6) 
+//@Size()
   public Integer getPincode() {
     return pincode;
   }

@@ -4,13 +4,10 @@ import UsersDetail.User.exception.UserNotFoundException;
 import UsersDetail.User.model.*;
 import UsersDetail.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,6 +39,7 @@ public class UserServiceImpl implements UserServiceInterface {
         userEntity.setDeleted(true);
         userRepository.save(userEntity);
         return userEntity;
+
     }
     @Override
     public PutSuccessResponse updateUser(String id, PutUserId putUserId){
@@ -63,13 +61,13 @@ public class UserServiceImpl implements UserServiceInterface {
         }
 
         return new PutSuccessResponse().data(new GetErrorResponseAllOfData().id(id))
-                .request(new Request().uri("LocalHost").method(Method.PUT).queryString(null));
+                .request(new Request().uri("Localhost:8080").method(Method.PUT).queryString(null));
     }
 
 
 
 
-    public PostSuccessResponse addUser( @RequestBody  UserRequest userRequest){
+    public PostSuccessResponse addUser( UserRequest userRequest){
         UserEntity user=new UserEntity();
         user.setId(UUID.randomUUID().toString());
 
@@ -81,7 +79,7 @@ public class UserServiceImpl implements UserServiceInterface {
         userRepository.save(user);
 
         return new PostSuccessResponse().data(new GetErrorResponseAllOfData().id(user.getId()))
-                .request(new Request().uri("LocalHost").method(Method.POST).queryString(null));
+                .request(new Request().uri("Localhost:8080").method(Method.POST).queryString(null));
 
 
     }

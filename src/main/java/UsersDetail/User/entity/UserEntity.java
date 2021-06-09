@@ -13,11 +13,12 @@ public class UserEntity {
     @PrimaryKey
     private String id = UUID.randomUUID().toString();
     @Column
+    @NotNull
+    @Pattern(regexp="^[a-zA-Z]{3,}")
     private String name;
     @Column
     @NotNull
     @Pattern(regexp="^[0-9]{10}$")
-    @Size(max=10)
     private String number;
     @Column
     private String line1;
