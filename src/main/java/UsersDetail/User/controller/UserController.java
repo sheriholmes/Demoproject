@@ -37,16 +37,10 @@ public class UserController {
     }
 
     @PostMapping("/user")
-<<<<<<< HEAD
+
     public PostSuccessResponse addUser ( @Valid @RequestBody UserRequest userRequest){
         return userServiceImpl.addUser(userRequest);
-=======
-    public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
-      return userServiceImpl.addUser(userRequest);
 
->>>>>>> 6f6777074269a397750e52b1d6c0147cf2ee0126
-
-    }
 
 }
 
