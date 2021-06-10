@@ -14,7 +14,7 @@ public class UserEntity {
     private String id = UUID.randomUUID().toString();
     @Column
     @NotNull
-    @Pattern(regexp="^[a-zA-Z]{3,}")
+    @Pattern(regexp="^([a-zA-Z]{2,}\\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)")
     private String name;
     @Column
     @NotNull

@@ -38,7 +38,7 @@ public class UserRequest   {
   @ApiModelProperty(required = true, value = "name of the user")
   @NotNull
 
-@Pattern(regexp="^[a-zA-Z]{3,}")
+@Pattern(regexp="^([a-zA-Z]{2,}\\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)")
   public String getName() {
     return name;
   }

@@ -5,7 +5,6 @@ package UsersDetail.User.controller;
 import UsersDetail.User.model.GetErrorResponse;
 import UsersDetail.User.model.UserResponse;
 import UsersDetail.User.model.index.UserIndex;
-import UsersDetail.User.service.UserServiceES;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

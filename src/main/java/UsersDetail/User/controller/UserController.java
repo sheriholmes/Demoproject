@@ -1,5 +1,4 @@
 package UsersDetail.User.controller;
-import UsersDetail.User.entity.Address;
 import UsersDetail.User.entity.UserEntity;
 import UsersDetail.User.model.*;
 
@@ -24,7 +23,9 @@ public class UserController {
 
     @DeleteMapping("/user/{id}")
     public UserEntity deleteUserById(@PathVariable("id")String id){
-        return userServiceImpl.deleteById(id);
+        return  userServiceImpl.deleteById(id);
+
+
 
     }
 
@@ -37,14 +38,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-<<<<<<< HEAD
+
     public PostSuccessResponse addUser ( @Valid @RequestBody UserRequest userRequest){
         return userServiceImpl.addUser(userRequest);
-=======
-    public PostSuccessResponse addUser (@RequestBody UserRequest userRequest){
-      return userServiceImpl.addUser(userRequest);
 
->>>>>>> 6f6777074269a397750e52b1d6c0147cf2ee0126
+
+
 
     }
 

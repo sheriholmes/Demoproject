@@ -2,6 +2,7 @@ package UsersDetail.User.service;
 import UsersDetail.User.entity.UserEntity;
 import UsersDetail.User.exception.UserNotFoundException;
 import UsersDetail.User.model.*;
+import UsersDetail.User.model.Error;
 import UsersDetail.User.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
