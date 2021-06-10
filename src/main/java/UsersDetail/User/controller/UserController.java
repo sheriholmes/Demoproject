@@ -41,11 +41,13 @@ public class UserController {
 
     public PostSuccessResponse addUser ( @Valid @RequestBody UserRequest userRequest){
         return userServiceImpl.addUser(userRequest);
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 79d0956779b8b0b243432be4bb4a1e1548992695
 
-    }
 
 }
 
