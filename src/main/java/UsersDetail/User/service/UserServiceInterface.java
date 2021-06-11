@@ -9,7 +9,7 @@ public interface UserServiceInterface {
 
 
     PutSuccessResponse updateUser(String id, PutUserId putUserId);
-    UserEntity getUserById(String id);
+    GetSuccessResponse getUserById(String id );
     UserEntity deleteById(String id);
     PostSuccessResponse addUser(UserRequest userRequest);
 

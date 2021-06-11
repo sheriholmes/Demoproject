@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +36,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         req.setUri(String.valueOf(((ServletWebRequest) request).getRequest().getRequestURL()));
         req.setMethod(Method.valueOf(((ServletWebRequest) request).getRequest().getMethod()));
 
+
+
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setError(error);
         errorResponse.setRequest(req);
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+
     }
 
     @ExceptionHandler(Exception.class)

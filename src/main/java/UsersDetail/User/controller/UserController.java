@@ -9,46 +9,39 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
 @RestController
 @Validated
 public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
+
     @GetMapping("/user/{id}")
-    public  UserEntity getUserById(@PathVariable("id") String id){
-        UserEntity response = userServiceImpl.getUserById(id);
-        return  response;
+    public GetSuccessResponse getUserById(@PathVariable("id") String id) {
+        GetSuccessResponse response = userServiceImpl.getUserById(id);
+        return response;
     }
 
     @DeleteMapping("/user/{id}")
-    public UserEntity deleteUserById(@PathVariable("id")String id){
-        return  userServiceImpl.deleteById(id);
-
+    public UserEntity deleteUserById(@PathVariable("id") String id) {
+        return userServiceImpl.deleteById(id);
 
 
     }
 
     @PutMapping("/user/{id}")
-    public PutSuccessResponse updateUser(@PathVariable("id")String id, @Valid @RequestBody PutUserId putUserId){
+    public PutSuccessResponse updateUser(@PathVariable("id") String id, @RequestBody PutUserId putUserId) {
         PutSuccessResponse response = userServiceImpl.updateUser(id, putUserId);
 
-
-        return  response;
+        return response;
     }
 
     @PostMapping("/user")
 
-    public PostSuccessResponse addUser ( @Valid @RequestBody UserRequest userRequest){
+    public PostSuccessResponse addUser(@Valid @RequestBody UserRequest userRequest) {
         return userServiceImpl.addUser(userRequest);
-<<<<<<< HEAD
 
 
-
-=======
->>>>>>> 79d0956779b8b0b243432be4bb4a1e1548992695
-
-
+    }
 }
 
 
